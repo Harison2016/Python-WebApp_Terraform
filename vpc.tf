@@ -12,7 +12,7 @@ resource "aws_vpc" "PythonAPP" {
 resource "aws_subnet" "public_subnet1" {
   vpc_id                  = aws_vpc.PythonAPP.id
   cidr_block              = "192.168.1.0/24"
-  availability_zone       = "us-east-1a"
+  availability_zone       = "us-east-2a"
   map_public_ip_on_launch = true
 
   tags = {
@@ -23,7 +23,7 @@ resource "aws_subnet" "public_subnet1" {
 resource "aws_subnet" "public_subnet2" {
   vpc_id                  = aws_vpc.PythonAPP.id
   cidr_block              = "192.168.3.0/24"
-  availability_zone       = "us-east-1b"
+  availability_zone       = "us-east-2b"
   map_public_ip_on_launch = true
 
   tags = {
@@ -36,7 +36,7 @@ resource "aws_subnet" "public_subnet2" {
 resource "aws_subnet" "private_subnet1" {
   vpc_id                  = aws_vpc.PythonAPP.id
   cidr_block              = "192.168.2.0/24"
-  availability_zone       = "us-east-1a"
+  availability_zone       = "us-east-2a"
   map_public_ip_on_launch = false
 
   tags = {
@@ -47,7 +47,7 @@ resource "aws_subnet" "private_subnet1" {
 resource "aws_subnet" "private_subnet2" {
   vpc_id                  = aws_vpc.PythonAPP.id
   cidr_block              = "192.168.4.0/24"
-  availability_zone       = "us-east-1b"
+  availability_zone       = "us-east-2b"
   map_public_ip_on_launch = false
 
   tags = {
@@ -68,13 +68,15 @@ resource "aws_internet_gateway" "igw" {
 
 # Create Elastic IP
 resource "aws_eip" "nat_eip" {
-  vpc        = true
+  domain = "vpc"
   depends_on = [aws_internet_gateway.igw]
 
   tags = {
     Name = format("%s-EIP", var.name)
   }
 }
+
+
 
 # create NAT gateway 
 resource "aws_nat_gateway" "natgw" {

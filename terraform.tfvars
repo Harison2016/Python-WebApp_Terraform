@@ -1,4 +1,4 @@
-region = "us-east-1"
+region = "us-east-2"
 
 instance_type = "t2.micro"
 
@@ -8,8 +8,8 @@ enable_dns_support = "true"
 
 enable_dns_hostnames = "true"
 
-ami = "ami-0c4f7023847b90238"
+ami = "ami-0c3c2e359a34e3309"
 
-keypair = "douxtech"
+keypair = "Jenkins_keypair"
 
 disk_size = "10"
